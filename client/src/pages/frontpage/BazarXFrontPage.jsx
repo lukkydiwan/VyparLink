@@ -1,5 +1,5 @@
 // ============================================================================
-//  BazarX – Home Page (React Router‑ready, Search navigates to /products)
+//  BazarX – Home Page (React Router‑ready, Categories link to /allproducts)
 // ============================================================================
 
 import React, { useState } from "react";
@@ -19,18 +19,54 @@ import {
 // --- Static data -----------------------------------------------------------
 
 const categories = [
-  { name: "Spices", img: "https://source.unsplash.com/featured/400x300?spices" },
-  { name: "Fresh Veggies", img: "https://source.unsplash.com/featured/400x300?vegetables" },
-  { name: "Dairy", img: "https://source.unsplash.com/featured/400x300?milk" },
-  { name: "Packaging", img: "https://source.unsplash.com/featured/400x300?packaging" },
-  { name: "Cleaning", img: "https://source.unsplash.com/featured/400x300?cleaning" },
+  {
+    name: "Spices",
+    slug: "spices",
+    img: "./spices.jpg", // Placeholder, replace with actual image URL
+  },
+  {
+    name: "Fresh Veggies",
+    slug: "veggies",
+    img: "./veggie.jpg", // Placeholder, replace with actual image URL
+  },
+  {
+    name: "Dairy",
+    slug: "dairy",
+    img: "./dairy.jpg", // Placeholder, replace with actual image URL
+  },
+  {
+    name: "Packaging",
+    slug: "packaging",
+    img: "./package.jpg", // Placeholder, replace with actual image URL
+  },
+  {
+    name: "Cleaning",
+    slug: "cleaning",
+    img: "./cleaning.jpg", // Placeholder, replace with actual image URL
+  },
 ];
 
 const valueProps = [
-  { icon: FaTruck, title: "Overnight delivery", desc: "Order by 8 pm, cook by 6 am." },
-  { icon: FaTags, title: "Wholesale rates", desc: "Live mandi prices—no middlemen." },
-  { icon: FaCheckCircle, title: "Quality assured", desc: "Each batch photo‑verified & FSSAI checked." },
-  { icon: FaUndoAlt, title: "Easy returns", desc: "Wrong or stale? We swap before breakfast." },
+  {
+    icon: FaTruck,
+    title: "Overnight Availability",
+    desc: "Order by 8 pm, cook by 6 am.",
+  },
+  {
+    icon: FaTags,
+    title: "Wholesale rates",
+    desc: "Live mandi prices—no middlemen.",
+  },
+  {
+    icon: FaCheckCircle,
+    title: "Quality assured",
+    desc: "Each batch photo‑verified & FSSAI checked.",
+  },
+  {
+    icon: FaUndoAlt,
+    title: "Easy returns",
+    desc: "Wrong or stale? We swap before breakfast.",
+  },
 ];
 
 // --- Page sections ---------------------------------------------------------
@@ -40,13 +76,15 @@ const Hero = () => (
     <div className="hero__content">
       <h1>Affordable ingredients, delivered by dawn.</h1>
       <p>
-        BazarX lets street‑food owners lock today’s mandi prices and get fresh supplies before the <strong style={{ color: "var(--orange)" }}>tawa</strong> heats up.
+        BazarX lets street‑food owners lock today’s mandi prices and get fresh
+        supplies before the{" "}
+        <strong style={{ color: "var(--orange)" }}>tawa</strong> heats up.
       </p>
       <div className="cta-wrap">
         <Link to="/login" className="btn-primary">
           Shop Now
         </Link>
-        <Link to="/register" className="btn-outline">
+        <Link to="/login" className="btn-outline">
           Start Selling
         </Link>
       </div>
@@ -132,11 +170,15 @@ const Categories = () => (
     <div className="container">
       <h2>Top Categories</h2>
       <div className="cat-grid">
-        {categories.map(({ name, img }) => (
-          <a key={name} href="#" className="cat-tile">
+        {categories.map(({ name, slug, img }) => (
+          <Link
+            key={slug}
+            to={`/allproducts?cat=${slug}`}
+            className="cat-tile"
+          >
             <img src={img} alt={name} />
             <span>{name}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
@@ -149,10 +191,10 @@ const HowItWorks = () => (
       <h2>How it works</h2>
       <div className="step-grid">
         {[
-          "Browse prices",
-          "Place order (cash / UPI / credit)",
+          "Unavailable ingredients? Search & select",
+          "Browse mandi prices",
           "We aggregate & source overnight",
-          "Last‑mile delivery before 6 am",
+          "Select best deals",
         ].map((txt, i) => (
           <div className="step" key={i}>
             <div className="step-circle">{i + 1}</div>
@@ -199,10 +241,10 @@ const CTABanner = () => (
   <section className="cta-banner">
     <div className="container">
       <h2>
-        Ready to cut raw‑material costs by <span style={{ color: "var(--yellow)" }}>18 %</span>{" "}
-        this month?
+        Ready to cut raw‑material costs by{" "}
+        <span style={{ color: "var(--yellow)" }}>18 %</span> this month?
       </h2>
-      <Link to="/register">
+      <Link to="/login">
         <button>Create free account</button>
       </Link>
     </div>
@@ -237,20 +279,20 @@ const Footer = () => (
         <h4>Office</h4>
         <p>
           BazarX Pvt Ltd.
-          <br /> 3rd Floor, JMD Megapolis
-          <br /> Gurugram, Haryana 122018
+          <br /> Students Club 
+          <br /> Imphal , Manipur  795002
         </p>
       </div>
       <div>
         <h4>Follow us</h4>
         <div className="socials">
-          <a href="#" aria-label="Facebook">
+          <a href="https://www.instagram.com/l.ukk_y/" aria-label="Facebook">
             <FaFacebookF />
           </a>
-          <a href="#" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/lakshya-singh-243510302/" aria-label="LinkedIn">
             <FaLinkedinIn />
           </a>
-          <a href="#" aria-label="Instagram">
+          <a href="https://www.instagram.com/l.ukk_y/" aria-label="Instagram">
             <FaInstagram />
           </a>
         </div>

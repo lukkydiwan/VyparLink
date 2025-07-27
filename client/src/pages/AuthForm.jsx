@@ -45,7 +45,7 @@ export default function AuthForm() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-side">
-          <h2>{mode === 'login' ? 'Welcome Back 🌸' : 'Join BazaarX 🌹'}</h2>
+          <h2>{mode === 'login' ? 'Welcome Back 🌸' : 'Join VyaaparLink 🌹'}</h2>
           <p>
             {mode === 'login'
               ? 'Glad to see you again!'
