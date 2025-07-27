@@ -12,7 +12,7 @@ const Navbar = () => {
 
         <ul className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <li><a href="/">Home</a></li>
-          <li><Link to="/products">Products</Link> </li>
+          <li><Link to="import.meta.env.VITE_API_URL/products">Products</Link> </li>
         </ul>
  {user ? (
         <div className="flex items-center gap-4">
