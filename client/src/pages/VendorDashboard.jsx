@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar"; // keep in sync
 import { useAuth } from "../context/AuthContext";        // assumes existing auth hook
-import "./frontpage/BazarXFrontPage.css";
+import "./frontpage/bazarxfrontPage.css";
 
 const ALLOWED_CATEGORIES = [
   "Spices",
