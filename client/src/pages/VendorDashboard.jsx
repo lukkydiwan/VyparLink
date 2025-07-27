@@ -64,7 +64,7 @@ export default function VendorDashboard() {
       };
 
       const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
-      const res = await fetch(`${API}/api/vendor/products`, {
+      const res = await fetch(`${API}/vendor/products`, {
         method: "POST",
         credentials: "include",             // send token cookie
         headers: {
