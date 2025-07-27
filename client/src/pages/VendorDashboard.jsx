@@ -45,7 +45,8 @@ export default function VendorDashboard() {
     e.preventDefault();
     const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log("Submitting to backend… 🔥");   // ← should appear in DevTools Console
+  setSuccess(true);
+queryClient.invalidateQueries({ queryKey: ["products"] });   // ← should appear in DevTools Console
 };
 
     setLoading(true);
@@ -60,13 +61,13 @@ export default function VendorDashboard() {
         } else fd.append(k, v);
       });
 
-      const res = await fetch("/api/vendor/products", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: fd,
-      });
+     const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const res = await fetch(`${API}/api/vendor/products`, {
+  method: "POST",
+  credentials: "include",           // send token cookie
+  body: fd,
+});
+
 
       if (!res.ok) throw new Error((await res.json()).message || "Upload failed");
 

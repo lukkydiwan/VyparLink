@@ -2,7 +2,7 @@ import Product from '../models/product.model.js';
 import mongoose from 'mongoose';
 export const listProducts = async (req, res, next) => {
   try {
-    const { q, page = 1, limit = 12 } = req.query;
+    const { q, page = 1, limit = 20 } = req.query;
     const query = q ? { title: new RegExp(q, 'i') } : {};
     const [items, total] = await Promise.all([
       Product.find(query)

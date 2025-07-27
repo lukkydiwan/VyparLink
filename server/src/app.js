@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-
 import { notFound, errorHandler } from './middlewares/error.js';
 import authRoutes from './routes/auth.routes.js';
 import productRoutes from './routes/product.routes.js';
@@ -31,5 +30,6 @@ app.use('/api/vendor', vendorRoutes);
 // ── error handling ──────────────────────────
 app.use(notFound);
 app.use(errorHandler);
+
 
 export default app;
