@@ -1,0 +1,153 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff0f5; /* light rose background */
+}
+
+.navbar {
+  background-color: #fff0f5;
+  box-shadow: 0 4px 6px rgba(198, 40, 96, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #c2185b; /* rose red */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #6e0f3c; /* deep rose */
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ad1457;
+}
+
+.btn {
+  background-color: #e91e63;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: #c2185b;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #6e0f3c;
+  border-radius: 3px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    background-color: #fff0f5;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .nav-links.active {
+    max-height: 400px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+/* Love & Petal button styles  ------------------------------------ */
+.rose-btn {
+  /* layout */
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  border-radius: 9999px;        /* full‑pill */
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+
+  /* primary colors */
+  color: #ffffff;
+  background: linear-gradient(90deg, #f43f5e 0%, #e11d48 100%);
+  border: 2px solid transparent;
+
+  /* subtle inner shadow for depth */
+  box-shadow: 0 3px 8px rgba(244, 63, 94, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Hover / focus */
+.rose-btn:hover,
+.rose-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(244, 63, 94, 0.35);
+}
+
+/* Active (pressed) */
+.rose-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(244, 63, 94, 0.25);
+}
+
+/* Optional outline variant --------------------------------------- */
+.rose-outline {
+  background: transparent;
+  color: #e11d48;
+  border-color: #e11d48;
+  box-shadow: none;
+}
+
+.rose-outline:hover,
+.rose-outline:focus-visible {
+  background: #fff1f5;
+}
+
+/* Disabled state -------------------------------------------------- */
+.rose-btn[disabled],
+.rose-btn.rose-outline[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}

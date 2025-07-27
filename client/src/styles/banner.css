@@ -1,0 +1,7 @@
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-60%); }
+}
+.banner-scroll { animation: scroll-left 40s linear infinite; }
+.banner-scroll:hover { animation-play-state: paused; }
+.banner-scroll::-webkit-scrollbar { display: none; }

@@ -1,0 +1,38 @@
+.hero-section {
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, #fffafa 0%, #fff1f5 40%, #ffe4e6 100%);
+}
+
+.hero-heading {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 700;
+}
+.hero-sub { color: #9f6476; font-size: 1.125rem; }
+
+/* CTA buttons */
+.cta-btn-primary {
+  @apply px-8 py-3 rounded-full bg-rose-600 text-white text-lg font-semibold shadow hover:bg-rose-700 transition;
+}
+.cta-btn-secondary {
+  @apply px-8 py-3 rounded-full border-2 border-rose-600 text-rose-600 text-lg font-semibold hover:bg-rose-50 transition;
+}
+
+/* ─── Navbar styles ───────────────────────────── */
+.navbar {
+  @apply fixed top-0 inset-x-0 flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-md shadow-sm z-50;
+}
+.brand {
+  @apply text-3xl font-medium tracking-wide text-rose-600;
+}
+
+.nav-btn {
+  @apply px-4 py-2 rounded-full text-lg font-medium transition shadow-sm;
+}
+
+.nav-btn-primary {
+  @apply bg-rose-600 text-white hover:bg-rose-700;
+}
+
+.nav-btn-secondary {
+  @apply border border-rose-500 text-rose-600 hover:bg-rose-50;
+}

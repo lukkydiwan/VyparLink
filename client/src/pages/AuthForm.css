@@ -1,0 +1,113 @@
+/* Container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, #fffafa 0%, #fff1f5 100%);
+}
+
+/* Card */
+.auth-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 960px;
+  width: 100%;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .auth-card {
+    grid-template-columns: 1fr 1fr; /* image + form */
+  }
+}
+
+/* Left‑side image / text */
+.auth-side {
+  background: url('https://source.unsplash.com/800x600/?flowers,roses') center/cover
+    no-repeat;
+  color: #f43f5e;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+/* Form */
+.auth-form {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #fecdd3;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #f43f5e;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.25);
+}
+
+/* Role switch (register only) */
+.role-switch {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.role-switch label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+  color: #e11d48;
+}
+
+.role-switch input[type='radio'] {
+  accent-color: #f43f5e; /* nice rose */
+}
+
+/* Buttons */
+.rose-btn {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #f43f5e, #e11d48);
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+}
+
+.rose-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 63, 94, 0.35);
+}
+
+.error-text {
+  color: #e11d48;
+  font-size: 0.875rem;
+}
+
+.toggle-text {
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.toggle-btn {
+  color: #e11d48;
+  cursor: pointer;
+  font-weight: 500;
+}
