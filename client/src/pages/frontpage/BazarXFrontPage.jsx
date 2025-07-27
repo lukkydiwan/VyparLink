@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
-import "./BazarXFrontPage.css";
+import "./bazarxfrontPage.css";
 import {
   FaTruck,
   FaTags,

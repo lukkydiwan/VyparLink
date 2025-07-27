@@ -45,12 +45,9 @@ const productSchema = new mongoose.Schema(
       default: 0,
     },
 
-    images: [
-      {
-        url: String,
-        thumbUrl: String,
-      },
-    ],
+    // models/Product.js
+images: [String],
+
   },
   { timestamps: true }
 );

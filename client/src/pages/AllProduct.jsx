@@ -57,8 +57,7 @@ export default function AllProduct() {
               <Link key={p._id} to={`/products/${p._id}`} className="prod-card">
                 <img
                   src={
-                    p.images?.[0]?.thumbUrl ||
-                    "https://via.placeholder.com/300x200?text=No+Image"
+                    p.images?.[0]
                   }
                   alt={p.title}
                   className="prod-img"

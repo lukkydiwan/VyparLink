@@ -138,3 +138,5 @@ button { cursor: pointer; font-family: inherit; }
 .preview-grid img { width:100%; height:100px; object-fit:cover; border-radius:4px; }
 
 .submit-btn { width:100%; padding:.75rem; }
+.url-row { display: flex; gap: .5rem; margin-bottom: .5rem; }
+.btn-small { padding: .35rem .6rem; font-size: .8rem; }

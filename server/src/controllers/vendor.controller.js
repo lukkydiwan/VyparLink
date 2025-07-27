@@ -19,7 +19,6 @@ export const createMyProduct = async (req, res, next) => {
     if (req.files?.length) {
       data.images = req.files.map((f) => ({
         url: `/uploads/${f.filename}`,
-        thumbUrl: `/uploads/thumb_${f.filename}`,
       }));
     }
     const prod = await Product.create(data);

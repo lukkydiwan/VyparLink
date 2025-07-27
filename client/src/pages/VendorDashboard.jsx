@@ -1,81 +1,91 @@
+// src/pages/VendorDashboard.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar"; // keep in sync
-import { useAuth } from "../context/AuthContext";        // assumes existing auth hook
-import "./frontpage/BazarXFrontPage.css";
+import Navbar from "../components/Navbar/Navbar";
+import { useAuth } from "../context/AuthContext";
+import "./frontpage/bazarxfrontPage.css";          // re‑use existing styles
 
+/* ------------ shared list so dropdown & backend stay in sync --------- */
 const ALLOWED_CATEGORIES = [
   "Spices",
   "Fresh Veggies",
   "Dairy",
   "Packaging",
   "Cleaning",
-  // add more as needed
 ];
 
 export default function VendorDashboard() {
   const navigate = useNavigate();
-  const { user, token } = useAuth(); // token from login cookie or context
+  const { token } = useAuth();
 
-  /* ---------- local form state ---------- */
+  /* ----------------------- local form state -------------------------- */
   const [form, setForm] = useState({
     title: "",
     price: "",
     stockQty: "",
     category: "",
     description: "",
-    images: [],
+    images: [""],                 // start with one empty URL field
   });
-  const [preview, setPreview] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "images") {
-      setForm({ ...form, images: files });
-      setPreview(Array.from(files).map((f) => URL.createObjectURL(f)));
-    } else {
-      setForm({ ...form, [name]: value });
-    }
+  /* ----------------------- handlers ---------------------------------- */
+  const handleField = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleImgChange = (idx, value) => {
+    const list = [...form.images];
+    list[idx] = value;
+    setForm({ ...form, images: list });
   };
 
+  const addImgField = () =>
+    setForm({ ...form, images: [...form.images, ""] });
+
+  const removeImgField = (idx) =>
+    setForm({
+      ...form,
+      images: form.images.filter((_, i) => i !== idx),
+    });
+
+  /* ----------------------- submit ------------------------------------ */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const handleSubmit = async (e) => {
-  e.preventDefault();
-  setSuccess(true);
-queryClient.invalidateQueries({ queryKey: ["products"] });   // ← should appear in DevTools Console
-};
-
     setLoading(true);
     setError("");
     setSuccess(false);
 
     try {
-      const fd = new FormData();
-      Object.entries(form).forEach(([k, v]) => {
-        if (k === "images") {
-          Array.from(v).forEach((file) => fd.append("images", file));
-        } else fd.append(k, v);
+      const payload = {
+        ...form,
+        images: form.images.filter((u) => u.trim() !== ""),
+      };
+
+      const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
+      const res = await fetch(`${API}/api/vendor/products`, {
+        method: "POST",
+        credentials: "include",             // send token cookie
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+        body: JSON.stringify(payload),
       });
 
-     const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
-const res = await fetch(`${API}/api/vendor/products`, {
-  method: "POST",
-  credentials: "include",           // send token cookie
-  body: fd,
-});
-
-
-      if (!res.ok) throw new Error((await res.json()).message || "Upload failed");
+      if (!res.ok)
+        throw new Error((await res.json()).message || "Upload failed");
 
       setSuccess(true);
-      setForm({ title: "", price: "", stockQty: "", category: "", description: "", images: [] });
-      setPreview([]);
-      // optional: redirect to vendor product list
-      // navigate("/vendor/products");
+      setForm({
+        title: "",
+        price: "",
+        stockQty: "",
+        category: "",
+        description: "",
+        images: [""],
+      });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -83,15 +93,18 @@ const res = await fetch(`${API}/api/vendor/products`, {
     }
   };
 
+  /* ----------------------- JSX --------------------------------------- */
   return (
     <>
       <Navbar />
-      {/* ---- Intro Hero ---- */}
+
+      {/* ---------- hero ---------- */}
       <header className="vendor-hero">
         <div className="container vendor-hero__inner">
-          <h1>Sell smarter with BazarX</h1>
+          <h1>Sell smarter with VyaaparLink</h1>
           <p>
-            List your raw‑material inventory in minutes, reach hundreds of local street‑food vendors, and get paid as soon as the sun rises.
+            List your raw‑material inventory in minutes, reach hundreds of
+            local street‑food vendors, and get paid as soon as the sun rises.
           </p>
           <a href="#add-product" className="btn-primary">
             Add your first product ↓
@@ -99,24 +112,23 @@ const res = await fetch(`${API}/api/vendor/products`, {
         </div>
       </header>
 
-      {/* ---- Add‑Product Form ---- */}
+      {/* ---------- form ---------- */}
       <section id="add-product" className="add-product container">
         <h2>Add a new product</h2>
 
-        {error && <p className="text-center text-red-600 mb-4">{error}</p>}
+        {error && <p className="alert error">{error}</p>}
         {success && (
-          <p className="text-center text-green-700 mb-4">Product uploaded successfully!</p>
+          <p className="alert success">Product uploaded successfully!</p>
         )}
 
         <form onSubmit={handleSubmit} className="add-product__form">
-          
           <label>
             Title*
             <input
               type="text"
               name="title"
               value={form.title}
-              onChange={handleChange}
+              onChange={handleField}
               required
             />
           </label>
@@ -126,7 +138,7 @@ const res = await fetch(`${API}/api/vendor/products`, {
             <select
               name="category"
               value={form.category}
-              onChange={handleChange}
+              onChange={handleField}
               required
             >
               <option value="" disabled>
@@ -148,7 +160,7 @@ const res = await fetch(`${API}/api/vendor/products`, {
               min="0"
               step="0.01"
               value={form.price}
-              onChange={handleChange}
+              onChange={handleField}
               required
             />
           </label>
@@ -160,7 +172,7 @@ const res = await fetch(`${API}/api/vendor/products`, {
               name="stockQty"
               min="0"
               value={form.stockQty}
-              onChange={handleChange}
+              onChange={handleField}
               required
             />
           </label>
@@ -171,26 +183,49 @@ const res = await fetch(`${API}/api/vendor/products`, {
               name="description"
               rows={4}
               value={form.description}
-              onChange={handleChange}
+              onChange={handleField}
             />
           </label>
 
-          <label className="file-input">
-            Images (up to 5)
-            <input
-              type="file"
-              name="images"
-              accept="image/*"
-              multiple
-              onChange={handleChange}
-            />
-          </label>
+          {/* ---------- image URL fields ---------- */}
+          <label>Image URLs*</label>
+          {form.images.map((url, idx) => (
+            <div key={idx} className="url-row">
+              <input
+                type="url"
+                placeholder="https://example.com/photo.jpg"
+                value={url}
+                onChange={(e) => handleImgChange(idx, e.target.value)}
+                required={idx === 0}
+              />
+              {form.images.length > 1 && (
+                <button
+                  type="button"
+                  className="btn-small"
+                  onClick={() => removeImgField(idx)}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          ))}
 
-          {preview.length > 0 && (
+          <button
+            type="button"
+            className="btn-outline btn-small"
+            onClick={addImgField}
+          >
+            + Add another URL
+          </button>
+
+          {/* live preview */}
+          {form.images.some((u) => u.trim()) && (
             <div className="preview-grid">
-              {preview.map((src, idx) => (
-                <img key={idx} src={src} alt="preview" />
-              ))}
+              {form.images
+                .filter((u) => u.trim())
+                .map((src, i) => (
+                  <img key={i} src={src} alt="preview" />
+                ))}
             </div>
           )}
 
