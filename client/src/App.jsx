@@ -10,7 +10,7 @@ import VendorDashboard from './pages/VendorDashboard';
 import ProductDetail from './pages/ProductDetail';
 import LoveAndPetalsHomepage from './pages/Love';
 import AuthForm from './pages/AuthForm';
-import Home from './pages/frontpage/bazarxfrontPage';
+import Home from './pages/frontpage/BazarXFrontPage';
 import AllProduct from './pages/AllProduct';
 export default function App() {
   return (
