@@ -15,7 +15,7 @@ const app = express();
 
 // ── middlewares ─────────────────────────────
 app.use(morgan('dev'));
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL || 'https://vyparlink.onrender.com', credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));

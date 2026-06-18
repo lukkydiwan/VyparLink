@@ -4,7 +4,7 @@ import User from './src/models/user.model.js';
 import Product from './src/models/product.model.js';
 dotenv.config();
 
-await mongoose.connect("mongodb+srv://diwanlukky:aiYNY3PnWiQxsjat@cluster0.ibumzds.mongodb.net/");
+await mongoose.connect(process.env.MONGO_URI,);
 
 await User.deleteMany();
 await Product.deleteMany();
