@@ -1,6 +1,12 @@
 import User from '../models/user.model.js';
 import { signToken } from '../utils/jwt.js';
 
+const COOKIE_OPTS = {
+  httpOnly: true,
+  sameSite: 'none',
+  secure: true,
+};
+
 export const register = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
