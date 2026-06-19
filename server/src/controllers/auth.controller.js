@@ -34,3 +34,13 @@ export const login = async (req, res, next) => {
 export const logout = (_req, res) => {
   res.clearCookie('token' ,  COOKIE_OPTS).json({ message: 'Logged out' });
 };
+
+export const me = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) throw new Error('User not found');
+    res.json({ user: { id: user._id, name: user.name, role: user.role, email: user.email } });
+  } catch (err) {
+    next(err);
+  }
+};

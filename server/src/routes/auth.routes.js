@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login, logout } from '../controllers/auth.controller.js';
+import { register, login, logout, me} from '../controllers/auth.controller.js';
 import { body } from 'express-validator';
 import { protect } from '../utils/jwt.js';
 const router = Router();
